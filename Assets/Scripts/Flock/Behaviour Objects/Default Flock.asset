@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e89278edbf08e47be5c1abc1fc390c, type: 3}
+  m_Name: Default Flock
+  m_EditorClassIdentifier: 
+  behaviours:
+  - behaviour: {fileID: 11400000, guid: 422b533f864284047a45f8304f17d287, type: 2}
+    weight: 4
+  - behaviour: {fileID: 11400000, guid: 65c40ed9b7c983b4593cc244eb86d218, type: 2}
+    weight: 1
+  - behaviour: {fileID: 11400000, guid: 2f096ea3a768e1641a06cc8c6f8f8b61, type: 2}
+    weight: 2
+  - behaviour: {fileID: 11400000, guid: 64bea74ea21f2c8469e2e137453c104d, type: 2}
+    weight: 0.1
+  - behaviour: {fileID: 11400000, guid: f74400a97ba87cf45b41a898329d51b5, type: 2}
+    weight: 6
