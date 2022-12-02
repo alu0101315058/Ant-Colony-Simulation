@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 5882509965780823073, guid: cc5654f65ee9b5c488bfcf0e0b7b6022, type: 3}
   behaviour: {fileID: 11400000, guid: 49a9149abdd9f874cb5f353a096795de, type: 2}
-  startingCount: 100
+  startingCount: 260
   driveFactor: 10
   maxSpeed: 5
   neighbourRadius: 1.5
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 5882509965780823073, guid: 89db0aaa95a7888439772946cea73af6, type: 3}
   behaviour: {fileID: 11400000, guid: 49a9149abdd9f874cb5f353a096795de, type: 2}
-  startingCount: 100
+  startingCount: 258
   driveFactor: 10
   maxSpeed: 5
   neighbourRadius: 1.5
@@ -777,6 +777,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1061220631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1061220633}
+  - component: {fileID: 1061220632}
+  m_Layer: 0
+  m_Name: CursorFollower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1061220632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061220631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab25b8120cc8a848b05ad45e3c35af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1061220633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061220631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1169768062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 5882509965780823073, guid: b21e0f16398241d49b34be2e167a7916, type: 3}
   behaviour: {fileID: 11400000, guid: d00dd8dcc77524249a0d96c09475f5c0, type: 2}
-  startingCount: 500
+  startingCount: 153
   driveFactor: 10
   maxSpeed: 5
   neighbourRadius: 1.5
