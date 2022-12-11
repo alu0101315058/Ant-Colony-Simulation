@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ant : MonoBehaviour
+public class OldAnt : MonoBehaviour
 {
     [System.Serializable]
     public class Interest {
