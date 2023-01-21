@@ -56,6 +56,7 @@ public class Flock : MonoBehaviour
             // agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
 
             Vector2 move = behaviour.CalculateMove(agent, context, this);
+            move = HandleMapCollision(agent, move);
             move *= driveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
             {
@@ -64,6 +65,16 @@ public class Flock : MonoBehaviour
             agent.Move(move);
         }
     }
+        
+    private Vector2 HandleMapCollision(FlockAgent agent, Vector2 move)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(agent.transform.position, move, 0.5f, (1 << 7));
+        if (hit.collider != null)
+        {
+            move = Vector2.Reflect(move, hit.normal);
+        }
+        return move;
+    }
 
     List<Transform> GetNearbyObjects(FlockAgent agent)
     {
@@ -71,6 +82,7 @@ public class Flock : MonoBehaviour
         Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighbourRadius);
         foreach (Collider2D c in contextColliders)
         {
+
             if (c != agent.AgentCollider)
             {
                 context.Add(c.transform);
@@ -78,4 +90,7 @@ public class Flock : MonoBehaviour
         }
         return context;
     }
+
+
+
 }
