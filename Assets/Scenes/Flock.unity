@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &426820922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,18 +183,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3aac00ec84c4774d82992e3f57ba4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states: []
   agentPrefab: {fileID: 5882509965780823073, guid: 89db0aaa95a7888439772946cea73af6, type: 3}
-  behaviour: {fileID: 11400000, guid: d00dd8dcc77524249a0d96c09475f5c0, type: 2}
-  spawnPoint: {fileID: 1726132776}
   startingCount: 287
   driveFactor: 10
   maxSpeed: 5
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
-  pheromoneAllure: []
   dropPheromones: 0
-  pheromoneDropped: 1
   pheromoneDropRate: 0.5
+  gatheredFood: 0
 --- !u!4 &426820923
 Transform:
   m_ObjectHideFlags: 0
@@ -624,7 +622,7 @@ MonoBehaviour:
   - {fileID: 1814346937}
   - {fileID: 1723501548}
   instantiatedFood: []
-  foodPrefab: {fileID: 567991302282776771, guid: 30c2210419eef184fa048cd7541d411d, type: 3}
+  foodPrefab: {fileID: 567991302282776771, guid: 8eaa69f49ad2fe14089504549efbab51, type: 3}
 --- !u!4 &1645091686
 Transform:
   m_ObjectHideFlags: 0
@@ -746,6 +744,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2015617089}
   - component: {fileID: 2015617088}
+  - component: {fileID: 2015617091}
+  - component: {fileID: 2015617090}
   m_Layer: 0
   m_Name: Ant Flock
   m_TagString: Untagged
@@ -765,18 +765,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3aac00ec84c4774d82992e3f57ba4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states:
+  - behaviour: {fileID: 11400000, guid: aadb3b65481e69640a817ed0a776237e, type: 2}
+    pheromoneDropped: 0
+  - behaviour: {fileID: 11400000, guid: 5705cff3c6f14a34a9a2fb77ccf37174, type: 2}
+    pheromoneDropped: 1
   agentPrefab: {fileID: 5882509965780823073, guid: 2117610657933be41ab75e448f5d43a0, type: 3}
-  behaviour: {fileID: 11400000, guid: d00dd8dcc77524249a0d96c09475f5c0, type: 2}
-  spawnPoint: {fileID: 269501286}
-  startingCount: 287
+  startingCount: 77
   driveFactor: 10
   maxSpeed: 5
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
-  pheromoneAllure: []
   dropPheromones: 0
-  pheromoneDropped: 0
   pheromoneDropRate: 0.5
+  gatheredFood: 0
 --- !u!4 &2015617089
 Transform:
   m_ObjectHideFlags: 0
@@ -793,6 +795,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &2015617090
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015617087}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &2015617091
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015617087}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1001 &4347016105696479671
 PrefabInstance:
   m_ObjectHideFlags: 0
