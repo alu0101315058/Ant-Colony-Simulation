@@ -21,6 +21,12 @@ public class Flock : MonoBehaviour
     [Range(0f, 1f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
+    public float[] pheromoneAllure;
+    public bool dropPheromones = true;
+    public int pheromoneDropped;
+    public float pheromoneDropRate = .5f;
+
+    float lastDropped = 0;
     float squareMaxSpeed;
     float squareNeighbourRadius;
     float squareAvoidanceRadius;
@@ -50,6 +56,8 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool pheromoneUpdate = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
+        if (pheromoneUpdate) lastDropped = Time.time;
         foreach (FlockAgent agent in agents)
         {
             List<Transform> context = GetNearbyObjects(agent);
@@ -63,6 +71,7 @@ public class Flock : MonoBehaviour
                 move = move.normalized * maxSpeed;
             }
             agent.Move(move);
+            if (pheromoneUpdate) DropPheromone(agent);
         }
     }
         
@@ -91,6 +100,8 @@ public class Flock : MonoBehaviour
         return context;
     }
 
-
+    private void DropPheromone(FlockAgent agent) {
+        PheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(pheromoneDropped);
+    }
 
 }
