@@ -6,20 +6,15 @@ public class PheromoneNode : MonoBehaviour
 {
     public float[] feromoneTimes;
     public float lastUpdate = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Renderer rend;
 
     public void UpdateFeromone(int index)
     {
         feromoneTimes[index] = Time.time;
         lastUpdate = Time.time;
-    }
-
-    public void UpdateColor()
-    {
-        
+        if (rend == null) rend = GetComponent<Renderer>();
+        rend.material.SetFloat("_Duration", PheromoneField.instance.pheromoneDuration[index]);
+        rend.material.SetColor("_DominantColor", PheromoneField.instance.pheromoneColors[index]);
+        rend.material.SetFloat("_LastUpdated", lastUpdate);
     }
 }

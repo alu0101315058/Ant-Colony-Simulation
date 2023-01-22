@@ -7,19 +7,20 @@ public class PheromoneField : MonoBehaviour
     static public PheromoneField instance { get; private set;}
     public GameObject nodePrefab;
     public float[] pheromoneDuration;
+    public Color[] pheromoneColors;
     public float proximityUpdate = 0.1f;
     public LayerMask layerMask;
     [SerializeField] private int nodeCount = 0;
-    private float minFeromoneTime;
+    private float maxFeromoneTime;
     private List<PheromoneNode> nodes = new List<PheromoneNode>();
 
     // Start is called before the first frame update
     void Start()
     {
-        minFeromoneTime = 10;
+        maxFeromoneTime = 1;
         for (int i = 0; i < pheromoneDuration.Length; i++)
         {
-            if (pheromoneDuration[i] < minFeromoneTime) minFeromoneTime = pheromoneDuration[i];
+            if (pheromoneDuration[i] > maxFeromoneTime) maxFeromoneTime = pheromoneDuration[i];
         }
         if (instance == null) instance = this;
         else Debug.LogError("FeromoneField already exists");
@@ -35,20 +36,20 @@ public class PheromoneField : MonoBehaviour
         }
         for (int i = 0; node == null && i < nodes.Count; i++)
         {
-            if (Time.time - nodes[i].lastUpdate > minFeromoneTime) node = nodes[i];
+            if (Time.time - nodes[i].lastUpdate > maxFeromoneTime) node = nodes[i];
         }
         if (node == null) node = CreateNode();
         node.transform.position = position;
         return node;
     }
 
-    void Update()
-    {
-        for (int i = 0; i < nodes.Count; i++)
-        {
-            nodes[i].UpdateColor();
-        }
-    }
+    // void Update()
+    // {
+    //     for (int i = 0; i < nodes.Count; i++)
+    //     {
+    //         nodes[i].UpdateColor();
+    //     }
+    // }
 
     public PheromoneNode CreateNode()
     {
