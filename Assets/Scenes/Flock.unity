@@ -223,6 +223,57 @@ Transform:
   m_Father: {fileID: 2015617089}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &275145473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 275145475}
+  - component: {fileID: 275145474}
+  m_Layer: 0
+  m_Name: PheromoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &275145474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275145473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bbd9012294e214ea5e3ca05a9f954f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodePrefab: {fileID: 7159769369915921801, guid: 8ddaf81310722a04bb9be5103108d194, type: 3}
+  pheromoneDuration: []
+  proximityUpdate: 0.1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  nodeCount: 0
+--- !u!4 &275145475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275145473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.2229452, y: -2.9266758, z: -34.390514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +654,10 @@ MonoBehaviour:
   maxSpeed: 4.6
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
+  pheromoneAllure: []
+  dropPheromones: 1
+  pheromoneDropped: 0
+  pheromoneDropRate: 0.5
 --- !u!4 &774988839
 Transform:
   m_ObjectHideFlags: 0
@@ -1428,6 +1483,10 @@ MonoBehaviour:
   maxSpeed: 4.6
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
+  pheromoneAllure: []
+  dropPheromones: 1
+  pheromoneDropped: 0
+  pheromoneDropRate: 0.5
 --- !u!4 &2015617089
 Transform:
   m_ObjectHideFlags: 0
