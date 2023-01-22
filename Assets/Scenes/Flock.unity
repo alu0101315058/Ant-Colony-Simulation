@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269501285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.3, y: -12.3, z: 0}
+  m_LocalPosition: {x: 41.9, y: -8.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -192,7 +192,7 @@ MonoBehaviour:
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
   pheromoneAllure: []
-  dropPheromones: 1
+  dropPheromones: 0
   pheromoneDropped: 1
   pheromoneDropRate: 0.5
 --- !u!4 &426820923
@@ -583,7 +583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726132775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.6, y: -12.3, z: 0}
+  m_LocalPosition: {x: -38.7, y: -12.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -628,7 +628,7 @@ MonoBehaviour:
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
   pheromoneAllure: []
-  dropPheromones: 1
+  dropPheromones: 0
   pheromoneDropped: 0
   pheromoneDropRate: 0.5
 --- !u!4 &2015617089
@@ -654,9 +654,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1212015955, guid: 2191fe092c92d8f4586785aa354a4dd1, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4347016105874804242, guid: 2191fe092c92d8f4586785aa354a4dd1, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347016105874804242, guid: 2191fe092c92d8f4586785aa354a4dd1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4347016105874804242, guid: 2191fe092c92d8f4586785aa354a4dd1, type: 3}
       propertyPath: m_LocalPosition.x
