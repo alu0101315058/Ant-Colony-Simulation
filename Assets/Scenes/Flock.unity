@@ -192,6 +192,37 @@ PolygonCollider2D:
       - {x: 1.8569816, y: 3.651238}
       - {x: 1.9863546, y: 3.7869492}
       - {x: 2.1829553, y: 4.308952}
+--- !u!1 &269501285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269501286}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269501286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269501285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.5, y: -12.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2015617089}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +871,7 @@ Transform:
   m_GameObject: {fileID: 996214691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -9.4, z: 0}
-  m_LocalScale: {x: 6.5, y: 7, z: 1}
+  m_LocalScale: {x: 6.5, y: 7, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2136508342}
@@ -858,7 +889,7 @@ Transform:
   - {fileID: 525046774}
   - {fileID: 1115684067}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1115684066
 GameObject:
@@ -1336,11 +1367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3aac00ec84c4774d82992e3f57ba4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 5882509965780823073, guid: b21e0f16398241d49b34be2e167a7916, type: 3}
+  agentPrefab: {fileID: 5882509965780823073, guid: 89db0aaa95a7888439772946cea73af6, type: 3}
   behaviour: {fileID: 11400000, guid: d00dd8dcc77524249a0d96c09475f5c0, type: 2}
-  startingCount: 287
+  spawnPoint: {fileID: 269501286}
+  startingCount: 262
   driveFactor: 10
-  maxSpeed: 15
+  maxSpeed: 4.6
   neighbourRadius: 1.5
   avoidanceRadiusMultiplier: 0.75
 --- !u!4 &2015617089
@@ -1352,11 +1384,12 @@ Transform:
   m_GameObject: {fileID: 2015617087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 269501286}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2136508341
 GameObject:

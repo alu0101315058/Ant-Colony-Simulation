@@ -8,6 +8,8 @@ public class Flock : MonoBehaviour
     private List<FlockAgent> agents = new List<FlockAgent>();
     public FlockBehaviour behaviour;
 
+    public Transform spawnPoint;
+
     [Range(10, 500)]
     public int startingCount = 250;
     const float AgentDensity = 0.08f;
@@ -37,7 +39,8 @@ public class Flock : MonoBehaviour
         {
             FlockAgent newAgent = Instantiate(
                 agentPrefab,
-                Random.insideUnitCircle * startingCount * AgentDensity,
+                (Vector2)spawnPoint.position + (Random.insideUnitCircle),
+                //Random.insideUnitCircle * AgentDensity * startingCount
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
                 transform
             );
