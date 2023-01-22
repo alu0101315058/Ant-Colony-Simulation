@@ -5,13 +5,27 @@ public class Food : MonoBehaviour
     public int minFoodValue = 50;
     public int maxFoodValue = 150;
 
-    private int foodValue;
+    public int foodValue = 4;
     private float shrinkFactor;
+    private ParticleSystem particles;
 
     void Start()
     {
         foodValue = Random.Range(minFoodValue, maxFoodValue);
         shrinkFactor = transform.localScale.magnitude / foodValue;
+        particles = GetComponent<ParticleSystem>();
+        var emission = particles.emission;
+        emission.rateOverTimeMultiplier = foodValue;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        FlockAgent agent = other.GetComponent<FlockAgent>();
+        if (agent != null)
+        {
+            agent.state = 1;
+            TakeBite();
+        }
     }
 
 
@@ -25,7 +39,8 @@ public class Food : MonoBehaviour
         }
         else
         {
-            transform.localScale = transform.localScale - shrinkFactor * Vector3.one;
+            var emission = particles.emission;
+            emission.rateOverTimeMultiplier = foodValue;
         }
     }
 

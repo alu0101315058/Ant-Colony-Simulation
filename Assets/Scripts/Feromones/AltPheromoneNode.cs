@@ -22,4 +22,13 @@ public class AltPheromoneNode
         feromoneTimes[index] = Time.time;
         lastUpdate = Time.time;
     }
+
+    public void Smell()
+    {
+        for (int i = 0; i < feromoneTimes.Length; i++)
+        {
+            feromoneTimes[i]--;
+        }
+        lastUpdate--;
+    }
 }

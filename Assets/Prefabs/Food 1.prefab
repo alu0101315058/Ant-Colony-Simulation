@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37f87f926936e64aa0cfcab1da181d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minFoodValue: 4
-  maxFoodValue: 4
-  foodValue: 0
+  minFoodValue: 100
+  maxFoodValue: 1000
+  foodValue: 4
 --- !u!58 &-3861495180545167935
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -656,7 +656,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
