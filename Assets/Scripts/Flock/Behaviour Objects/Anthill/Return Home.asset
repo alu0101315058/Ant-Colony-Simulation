@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2717a1a732c80094f85b67cd7fcf11e9, type: 3}
-  m_Name: Pheromone Allure
+  m_Script: {fileID: 11500000, guid: d8e89278edbf08e47be5c1abc1fc390c, type: 3}
+  m_Name: Return Home
   m_EditorClassIdentifier: 
-  filter: {fileID: 11400000, guid: 0f8e3d6cd9c833e4b986906955f2591e, type: 2}
+  behaviours:
+  - behaviour: {fileID: 11400000, guid: d7783d1f4ff9a264595102395bf78679, type: 2}
+    weight: 1

@@ -14,7 +14,6 @@ public class PheromoneField : MonoBehaviour
     private float maxFeromoneTime;
     private List<PheromoneNode> nodes = new List<PheromoneNode>();
 
-    // Start is called before the first frame update
     void Start()
     {
         maxFeromoneTime = 1;
@@ -42,14 +41,6 @@ public class PheromoneField : MonoBehaviour
         node.transform.position = position;
         return node;
     }
-
-    // void Update()
-    // {
-    //     for (int i = 0; i < nodes.Count; i++)
-    //     {
-    //         nodes[i].UpdateColor();
-    //     }
-    // }
 
     public PheromoneNode CreateNode()
     {

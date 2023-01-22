@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+    [System.Serializable]
+    public struct AgentState
+    {
+        public FlockBehaviour behaviour;
+        public int pheromoneDropped;
+    }
+
+    public List<AgentState> states;
     public FlockAgent agentPrefab;
     private List<FlockAgent> agents = new List<FlockAgent>();
-    public FlockBehaviour behaviour;
 
     public Transform spawnPoint;
 
@@ -23,10 +30,9 @@ public class Flock : MonoBehaviour
     [Range(0f, 1f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
-    public float[] pheromoneAllure;
     public bool dropPheromones = true;
-    public int pheromoneDropped;
     public float pheromoneDropRate = .5f;
+    public int gatheredFood = 0;
 
     float lastDropped = 0;
     float squareMaxSpeed;
@@ -57,7 +63,7 @@ public class Flock : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool pheromoneUpdate = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
         if (pheromoneUpdate) lastDropped = Time.time;
@@ -65,8 +71,8 @@ public class Flock : MonoBehaviour
         {
             List<Transform> context = GetNearbyObjects(agent);
             // agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
-
-            Vector2 move = behaviour.CalculateMove(agent, context, this);
+            if (agent.state >= states.Count) continue;
+            Vector2 move = states[agent.state].behaviour.CalculateMove(agent, context, this);
             move = HandleMapCollision(agent, move);
             move *= driveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
@@ -104,6 +110,17 @@ public class Flock : MonoBehaviour
     }
     private void DropPheromone(FlockAgent agent)
     {
-        PheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(pheromoneDropped);
+        PheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(states[agent.state].pheromoneDropped);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Anthill Triggered: " + other.gameObject.name);
+        FlockAgent agent = other.GetComponent<FlockAgent>();
+        if (agent != null && agent.AgentFlock == this && agent.state == 1)
+        {
+            agent.state = 0;
+            gatheredFood++;
+        }
     }
 }

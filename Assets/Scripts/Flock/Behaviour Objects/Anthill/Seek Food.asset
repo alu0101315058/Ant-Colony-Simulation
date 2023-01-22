@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e89278edbf08e47be5c1abc1fc390c, type: 3}
+  m_Name: Seek Food
+  m_EditorClassIdentifier: 
+  behaviours:
+  - behaviour: {fileID: 11400000, guid: 8013ef1c8331d004ab7f04ff21b6d130, type: 2}
+    weight: 1
+  - behaviour: {fileID: 11400000, guid: 090a53e9a28a7aa4b8836c3df0b2e9b8, type: 2}
+    weight: 2
