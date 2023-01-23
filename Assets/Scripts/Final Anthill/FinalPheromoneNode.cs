@@ -15,8 +15,8 @@ public class FinalPheromoneNode : MonoBehaviour
         type = index;
         lastUpdate = Time.time;
         if (rend == null) rend = GetComponent<Renderer>();
-        rend.material.SetFloat("_Duration", PheromoneField.instance.pheromoneDuration[index]);
-        rend.material.SetColor("_DominantColor", PheromoneField.instance.pheromoneColors[index]);
+        rend.material.SetFloat("_Duration", FinalPheromoneField.instance.pheromoneDuration[index]);
+        rend.material.SetColor("_DominantColor", FinalPheromoneField.instance.colors[index]);
         rend.material.SetFloat("_LastUpdated", lastUpdate);
     }
 
@@ -29,7 +29,7 @@ public class FinalPheromoneNode : MonoBehaviour
     public float Potency() 
     {
         float time = Time.time - lastUpdate;
-        float duration = PheromoneField.instance.pheromoneDuration[type];
+        float duration = FinalPheromoneField.instance.pheromoneDuration[type];
         float potency = 1 - (time / duration);
         if (potency < 0) potency = 0;
         return potency;

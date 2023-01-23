@@ -94,8 +94,8 @@ public class FinalAnthill : MonoBehaviour
 
     Vector2 Smell(FinalAnt ant)
     {
-        Collider2D food = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 8);
-        Collider2D home = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 10);
+        Collider2D food = Physics2D.OverlapCircle(ant.transform.position, 3f, 1 << 8);
+        Collider2D home = Physics2D.OverlapCircle(ant.transform.position, 3f, 1 << 10);
         if (ant.state == 0 && food != null) return (Vector2)food.transform.position - (Vector2)ant.transform.position;
         if (ant.state == 1 && home != null) return (Vector2)home.transform.position - (Vector2)ant.transform.position;
         for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
