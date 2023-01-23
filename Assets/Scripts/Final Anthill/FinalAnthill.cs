@@ -10,7 +10,6 @@ public class FinalAnthill : MonoBehaviour
         public int[] pheromoneSense;
         public int pheromoneDropped;
     }
-    public Transform target;
 
     public List<AgentState> states;
     public FinalAnt agentPrefab;
@@ -95,6 +94,10 @@ public class FinalAnthill : MonoBehaviour
 
     Vector2 Smell(FinalAnt ant)
     {
+        Collider2D food = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 8);
+        Collider2D home = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 10);
+        if (ant.state == 0 && food != null) return (Vector2)food.transform.position - (Vector2)ant.transform.position;
+        if (ant.state == 1 && home != null) return (Vector2)home.transform.position - (Vector2)ant.transform.position;
         for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
             if (states[ant.state].pheromoneSense[i] == 0) continue;
             List<FinalPheromoneNode> nodes = FinalPheromoneField.instance.GetPheromoneContext(ant, i);
@@ -103,8 +106,8 @@ public class FinalAnthill : MonoBehaviour
                 Vector2 move = Vector2.zero;
                 for (int j = 0; j < nodes.Count; j++)
                 {
-                    move += (Vector2)nodes[j].position - (Vector2)ant.transform.position * states[ant.state].pheromoneSense[i];
-                    // FinalPheromoneField.instance.GetNode(nodes[j].position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
+                    move += ((Vector2)nodes[j].transform.position - (Vector2)ant.transform.position) * states[ant.state].pheromoneSense[i] * nodes[j].Potency();
+                    // FinalPheromoneField.instance.GetNode(nodes[j].position).Smell();
                 }
                 return move;
             }
@@ -115,7 +118,7 @@ public class FinalAnthill : MonoBehaviour
 
     private void DropPheromone(FinalAnt ant)
     {
-        // FinalPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
+        FinalPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant);
     }
 
     void OnTriggerEnter2D(Collider2D other)

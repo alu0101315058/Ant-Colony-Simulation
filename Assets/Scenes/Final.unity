@@ -338,13 +338,13 @@ GameObject:
   m_Component:
   - component: {fileID: 853866684}
   - component: {fileID: 853866685}
-  m_Layer: 0
-  m_Name: Pheromones (1)
+  m_Layer: 6
+  m_Name: Pheromones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &853866684
 Transform:
   m_ObjectHideFlags: 0
@@ -369,17 +369,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 853866681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04fbfe608eabe04499222a4254eb2ca, type: 3}
+  m_Script: {fileID: 11500000, guid: e99d1c5645818f14a9a5ad4c99f57755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodePrefab: {fileID: -4478243889755443384, guid: 96c1429200773464d95f6003c35ed853, type: 3}
+  pheromoneDuration:
+  - 20
+  - 20
+  colors:
+  - {r: 0.046889305, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  proximityUpdate: 0.1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  colors:
-  - {r: 0, g: 0.2141664, b: 1, a: 1}
-  - {r: 1, g: 0.048927628, b: 0, a: 1}
-  resolution: 1
---- !u!1 &1103790007
+  nodeCount: 0
+--- !u!1 &1095979498
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,8 +392,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1103790008}
-  - component: {fileID: 1103790009}
+  - component: {fileID: 1095979499}
+  - component: {fileID: 1095979500}
   m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
@@ -396,13 +401,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1103790008
+--- !u!4 &1095979499
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1103790007}
+  m_GameObject: {fileID: 1095979498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.31, y: 0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -411,13 +416,13 @@ Transform:
   m_Father: {fileID: 1260651041}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1103790009
+--- !u!61 &1095979500
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1103790007}
+  m_GameObject: {fileID: 1095979498}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -446,41 +451,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1194086793}
-  - component: {fileID: 1194086792}
+  - component: {fileID: 1194086795}
   - component: {fileID: 1194086794}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Anthill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1194086792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194086791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88490f8d4db3f8a4ab907848febc36ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1615283975}
-  states:
-  - pheromoneSense: 0000000001000000
-    pheromoneDropped: 0
-  - pheromoneSense: 0100000000000000
-    pheromoneDropped: 1
-  agentPrefab: {fileID: 5489278397473232575, guid: 3baafdbff5486584f8e78eda79b6aa88, type: 3}
-  startingCount: 100
-  turnSpeed: 0.3
-  maxSpeed: 5
-  stuborness: 1
-  dropPheromones: 1
-  pheromoneDropRate: 0.5
-  gatheredFood: 0
 --- !u!4 &1194086793
 Transform:
   m_ObjectHideFlags: 0
@@ -512,6 +491,31 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
+--- !u!114 &1194086795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194086791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e489b1291012ac640b9ebc9639b157b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - pheromoneSense: 0000000001000000
+    pheromoneDropped: 0
+  - pheromoneSense: 0100000000000000
+    pheromoneDropped: 1
+  agentPrefab: {fileID: 7032930703278426163, guid: a3decd1eb45fe444c827d787f0f10810, type: 3}
+  startingCount: 100
+  turnSpeed: 0.3
+  maxSpeed: 3
+  stuborness: 1
+  dropPheromones: 1
+  pheromoneDropRate: 0.4
+  gatheredFood: 0
 --- !u!4 &1260651041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4347016105874804242, guid: 2191fe092c92d8f4586785aa354a4dd1, type: 3}
@@ -728,59 +732,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1645091686}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2117606151
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2117606153}
-  - component: {fileID: 2117606152}
-  m_Layer: 6
-  m_Name: DO NOT OPEN
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2117606152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117606151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cdf971f67a52424292435b00e05077a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  colors:
-  - {r: 0.09534168, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  durations:
-  - 20
-  - 20
---- !u!4 &2117606153
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117606151}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4347016105696479671
 PrefabInstance:

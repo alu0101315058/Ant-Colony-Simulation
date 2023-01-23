@@ -37,4 +37,13 @@ public class ColliderPheromoneNode
         this.type = type;
         lastUpdate = Time.time;
     }
+
+    public float Potency() 
+    {
+        float time = Time.time - lastUpdate;
+        float duration = ColliderPheromoneField.instance.durations[type];
+        float potency = 1 - (time / duration);
+        if (potency < 0) potency = 0;
+        return potency;
+    }
 }

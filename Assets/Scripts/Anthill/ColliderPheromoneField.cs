@@ -7,6 +7,7 @@ public class ColliderPheromoneField : MonoBehaviour
     static public ColliderPheromoneField instance { get; private set;}
     public LayerMask layerMask;
     public List<Color> colors = new List<Color>();
+    public List<float> durations = new List<float>();
     private Dictionary<Vector3, ColliderPheromoneNode> nodes = new Dictionary<Vector3, ColliderPheromoneNode>();
 
     void Start()

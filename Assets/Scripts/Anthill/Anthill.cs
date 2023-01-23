@@ -95,6 +95,10 @@ public class Anthill : MonoBehaviour
 
     Vector2 Smell(Ant ant)
     {
+        Collider2D food = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 8);
+        Collider2D home = Physics2D.OverlapCircle(ant.transform.position, 1f, 1 << 10);
+        if (ant.state == 0 && food != null) return (Vector2)food.transform.position - (Vector2)ant.transform.position;
+        if (ant.state == 1 && home != null) return (Vector2)home.transform.position - (Vector2)ant.transform.position;
         for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
             if (states[ant.state].pheromoneSense[i] == 0) continue;
             List<ColliderPheromoneNode> nodes = ColliderPheromoneField.instance.GetPheromoneContext(ant, i);
@@ -103,7 +107,7 @@ public class Anthill : MonoBehaviour
                 Vector2 move = Vector2.zero;
                 for (int j = 0; j < nodes.Count; j++)
                 {
-                    move += (Vector2)nodes[j].position - (Vector2)ant.transform.position * states[ant.state].pheromoneSense[i];
+                    move += ((Vector2)nodes[j].position - (Vector2)ant.transform.position) * states[ant.state].pheromoneSense[i] * nodes[j].Potency();
                     // ColliderPheromoneField.instance.GetNode(nodes[j].position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
                 }
                 return move;

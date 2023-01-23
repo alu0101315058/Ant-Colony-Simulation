@@ -32,6 +32,12 @@ public class Food : MonoBehaviour
             ant.GetFood();
             TakeBite();
         }
+        FinalAnt finalAnt = other.GetComponent<FinalAnt>();
+        if (finalAnt != null && finalAnt.state == 0)
+        {
+            finalAnt.GetFood();
+            TakeBite();
+        }
     }
 
 

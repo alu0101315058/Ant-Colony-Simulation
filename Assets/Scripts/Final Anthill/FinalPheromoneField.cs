@@ -22,7 +22,7 @@ public class FinalPheromoneField : MonoBehaviour
     public List<FinalPheromoneNode> GetPheromoneContext(FinalAnt ant, int filterType)
     {
         List<FinalPheromoneNode> context = new List<FinalPheromoneNode>();
-        Collider2D[] collidersUp = Physics2D.OverlapCircleAll(ant.transform.position + ant.transform.up, 1f, layerMask);
+        Collider2D[] collidersUp = Physics2D.OverlapCircleAll(ant.transform.position + ant.transform.up * 1.5f, 1f, layerMask);
         foreach (Collider2D collider in collidersUp) {
             FinalPheromoneNode node = collider.GetComponent<FinalPheromoneNode>();
             if (node != null && node.type == filterType) context.Add(node);
@@ -33,9 +33,21 @@ public class FinalPheromoneField : MonoBehaviour
     public FinalPheromoneNode GetNode(Vector3 position)
     {
         Collider2D collider = Physics2D.OverlapCircle(position, .6f, layerMask);
-        if (collider != null) {
+        FinalPheromoneNode node = collider?.GetComponent<FinalPheromoneNode>();
+        for (int i = 0; node == null && i < nodes.Count; i++)
+        {
+            if (Time.time - nodes[i].lastUpdate > pheromoneDuration[nodes[i].type]) node = nodes[i];
         }
-        FinalPheromoneNode node = Instantiate(nodePrefab, position, Quaternion.identity, transform);
+        if (node == null) node = CreateNode();
+        node.transform.position = position;
+        return node;
+    }
+
+    private FinalPheromoneNode CreateNode()
+    {
+        FinalPheromoneNode node = Instantiate(nodePrefab, transform);
+        nodes.Add(node);
+        nodeCount++;
         return node;
     }
 }
