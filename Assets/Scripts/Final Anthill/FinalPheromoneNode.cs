@@ -2,39 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalPheromoneNode
+public class FinalPheromoneNode : MonoBehaviour
 {
     public int type = -1;
     public float lastUpdate = 0;
     public Vector3 position;
-    public CircleCollider2D collider;
-    public FinalPheromoneNode(CircleCollider2D col, Vector3 pos = default)
-    {
-        position = pos;
-        collider = col;
-        collider.isTrigger = true;
-        collider.radius = 0.3f;
-        collider.offset = pos;
-    }
+    public Renderer rend;
 
-    public FinalPheromoneNode Transfer(Vector3 position)
+    public void UpdateFeromone(int index)
     {
-        FinalPheromoneNode node = new FinalPheromoneNode(collider, position);
-        collider = null;
-        node.type = type;
-        node.lastUpdate = lastUpdate;
-        return node;
-    }
-
-    public void UpdatePosition(Vector3 pos)
-    {
-        position = pos;
-        collider.offset = pos;
-    }
-
-    public void UpdatePheromone(int type)
-    {
-        this.type = type;
+        type = index;
         lastUpdate = Time.time;
+        if (rend == null) rend = GetComponent<Renderer>();
+        rend.material.SetFloat("_Duration", PheromoneField.instance.pheromoneDuration[index]);
+        rend.material.SetColor("_DominantColor", PheromoneField.instance.pheromoneColors[index]);
+        rend.material.SetFloat("_LastUpdated", lastUpdate);
+    }
+
+    public void Smell()
+    {
+        lastUpdate--;
+        rend.material.SetFloat("_LastUpdated", lastUpdate);
     }
 }

@@ -115,7 +115,7 @@ public class FinalAnthill : MonoBehaviour
 
     private void DropPheromone(FinalAnt ant)
     {
-        FinalPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
+        // FinalPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
     }
 
     void OnTriggerEnter2D(Collider2D other)
