@@ -7,6 +7,7 @@ public class AltPheromoneField : MonoBehaviour
     static public AltPheromoneField instance { get; private set;}
     public float[] pheromoneDuration;
     public LayerMask layerMask;
+    public float resolution = 16;
     private Dictionary<Vector2Int, AltPheromoneNode> nodes = new Dictionary<Vector2Int, AltPheromoneNode>();
 
     void Start()
@@ -17,7 +18,7 @@ public class AltPheromoneField : MonoBehaviour
 
     public List<AltPheromoneNode> GetPheromoneContext(Vector3 position)
     {
-        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.z));
+        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x / resolution), Mathf.RoundToInt(position.z / resolution));
         List<AltPheromoneNode> context = new List<AltPheromoneNode>();
         for (int x = -1; x <= 1; x++)
         {
@@ -32,7 +33,7 @@ public class AltPheromoneField : MonoBehaviour
 
     public AltPheromoneNode GetNode(Vector3 position)
     {
-        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.z));
+        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x / resolution), Mathf.RoundToInt(position.z / resolution));
         if (nodes.ContainsKey(pos)) return nodes[pos];
         AltPheromoneNode node = new AltPheromoneNode(pheromoneDuration.Length, pos);
         nodes.Add(pos, node);
