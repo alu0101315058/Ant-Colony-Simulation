@@ -75,7 +75,7 @@ public class AntPheromoneField : MonoBehaviour
     public AntPheromoneNode GetNode(Vector3 position)
     {
         Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x * resolution), Mathf.RoundToInt(position.y * resolution));
-        // Debug.Log(position + " : " + pos);
+        Debug.Log(position + " : " + pos);
         if (nodes.ContainsKey(pos)) return nodes[pos];
         AntPheromoneNode node = new AntPheromoneNode(position);
         nodes.Add(pos, node);
