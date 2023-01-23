@@ -109,7 +109,7 @@ public class Flock : MonoBehaviour
     }
     private void DropPheromone(FlockAgent agent)
     {
-        AltPheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(states[agent.state].pheromoneDropped);
+        PheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(states[agent.state].pheromoneDropped);
     }
 
     void OnTriggerEnter2D(Collider2D other)

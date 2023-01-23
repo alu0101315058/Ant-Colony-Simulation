@@ -17,4 +17,14 @@ public class PheromoneNode : MonoBehaviour
         rend.material.SetColor("_DominantColor", PheromoneField.instance.pheromoneColors[index]);
         rend.material.SetFloat("_LastUpdated", lastUpdate);
     }
+
+    public void Smell()
+    {
+        for (int i = 0; i < feromoneTimes.Length; i++)
+        {
+            feromoneTimes[i]--;
+        }
+        lastUpdate--;
+        rend.material.SetFloat("_LastUpdated", lastUpdate);
+    }
 }
