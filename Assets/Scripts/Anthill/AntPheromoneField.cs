@@ -62,7 +62,7 @@ public class AntPheromoneField : MonoBehaviour
         List<Vector2Int> positions = GetSensorPositions(ant);
         foreach (Vector2Int pos in positions)
         {
-            Vector2Int position = new Vector2Int(Mathf.RoundToInt(ant.transform.position.x / resolution) + pos.x, Mathf.RoundToInt(ant.transform.position.z / resolution) + pos.y);
+            Vector2Int position = new Vector2Int(Mathf.RoundToInt(ant.transform.position.x * resolution) + pos.x, Mathf.RoundToInt(ant.transform.position.y * resolution) + pos.y);
             if (nodes.ContainsKey(position))
             {
                 AntPheromoneNode node = nodes[position];
@@ -74,7 +74,8 @@ public class AntPheromoneField : MonoBehaviour
 
     public AntPheromoneNode GetNode(Vector3 position)
     {
-        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x / resolution), Mathf.RoundToInt(position.z / resolution));
+        Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x * resolution), Mathf.RoundToInt(position.y * resolution));
+        // Debug.Log(position + " : " + pos);
         if (nodes.ContainsKey(pos)) return nodes[pos];
         AntPheromoneNode node = new AntPheromoneNode(position);
         nodes.Add(pos, node);

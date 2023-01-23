@@ -105,6 +105,7 @@ public class Anthill : MonoBehaviour
                 {
                     float age = Time.time - nodes[j].lastUpdate + 0.1f;
                     move += (Vector2)nodes[j].position - (Vector2)ant.transform.position * states[ant.state].pheromoneSense[i] / age;
+                    // AntPheromoneField.instance.GetNode(nodes[j].position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
                 }
                 return move;
             }
