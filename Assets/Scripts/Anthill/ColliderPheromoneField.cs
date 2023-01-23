@@ -10,7 +10,7 @@ public class ColliderPheromoneField : MonoBehaviour
     public List<float> durations = new List<float>();
     private Dictionary<Vector3, ColliderPheromoneNode> nodes = new Dictionary<Vector3, ColliderPheromoneNode>();
 
-    void Start()
+    void Awake()
     {
         if (instance == null) instance = this;
         else Debug.LogError("FeromoneField already exists");

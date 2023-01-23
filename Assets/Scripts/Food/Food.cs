@@ -6,16 +6,14 @@ public class Food : MonoBehaviour
     public int maxFoodValue = 150;
 
     public int foodValue = 4;
-    private float shrinkFactor;
     private ParticleSystem particles;
 
     void Start()
     {
         foodValue = Random.Range(minFoodValue, maxFoodValue);
-        shrinkFactor = transform.localScale.magnitude / foodValue;
         particles = GetComponent<ParticleSystem>();
         var emission = particles.emission;
-        emission.rateOverTime = foodValue;
+        emission.rateOverTime = foodValue / 50;
     }
 
     void OnTriggerEnter2D(Collider2D other)

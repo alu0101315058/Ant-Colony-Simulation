@@ -17,7 +17,7 @@ public class FinalAnt : MonoBehaviour
     {
         state = 1;
         var main = particles.main;
-        main.startColor = FinalPheromoneField.instance.colors[1];
+        main.startColor = FinalPheromoneField.instance.colors[home.states[state].pheromoneDropped];
         transform.up = -transform.up;
     }
 
@@ -25,7 +25,7 @@ public class FinalAnt : MonoBehaviour
     {
         state = 0;
         var main = particles.main;
-        main.startColor = FinalPheromoneField.instance.colors[0];
+        main.startColor = FinalPheromoneField.instance.colors[home.states[state].pheromoneDropped];
         transform.up = -transform.up;
     }
 
@@ -34,6 +34,8 @@ public class FinalAnt : MonoBehaviour
     {
         agentCollider = GetComponent<Collider2D>();
         particles.Play();
+        var main = particles.main;
+        main.startColor = FinalPheromoneField.instance.colors[home.states[state].pheromoneDropped];
     }
 
     public void Initialize(FinalAnthill anthill)

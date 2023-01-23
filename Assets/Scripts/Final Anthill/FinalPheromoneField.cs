@@ -13,7 +13,7 @@ public class FinalPheromoneField : MonoBehaviour
     [SerializeField] private int nodeCount = 0;
     private List<FinalPheromoneNode> nodes = new List<FinalPheromoneNode>();
 
-    void Start()
+    void Awake()
     {
         if (instance == null) instance = this;
         else Debug.LogError("FeromoneField already exists");

@@ -10,7 +10,6 @@ public class Anthill : MonoBehaviour
         public int[] pheromoneSense;
         public int pheromoneDropped;
     }
-    public Transform target;
 
     public List<AgentState> states;
     public Ant agentPrefab;
@@ -98,7 +97,7 @@ public class Anthill : MonoBehaviour
         Collider2D food = Physics2D.OverlapCircle(ant.transform.position, 3f, 1 << 8);
         Collider2D home = Physics2D.OverlapCircle(ant.transform.position, 3f, 1 << 10);
         if (ant.state == 0 && food != null) return (Vector2)food.transform.position - (Vector2)ant.transform.position;
-        if (ant.state == 1 && home != null) return (Vector2)home.transform.position - (Vector2)ant.transform.position;
+        if (ant.state == 1 && home != null && home.gameObject == this) return (Vector2)home.transform.position - (Vector2)ant.transform.position;
         for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
             if (states[ant.state].pheromoneSense[i] == 0) continue;
             List<ColliderPheromoneNode> nodes = ColliderPheromoneField.instance.GetPheromoneContext(ant, i);

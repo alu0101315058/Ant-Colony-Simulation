@@ -17,7 +17,7 @@ public class Ant : MonoBehaviour
     {
         state = 1;
         var main = particles.main;
-        main.startColor = ColliderPheromoneField.instance.colors[1];
+        main.startColor = ColliderPheromoneField.instance.colors[home.states[state].pheromoneDropped];
         transform.up = -transform.up;
     }
 
@@ -25,7 +25,7 @@ public class Ant : MonoBehaviour
     {
         state = 0;
         var main = particles.main;
-        main.startColor = ColliderPheromoneField.instance.colors[0];
+        main.startColor = ColliderPheromoneField.instance.colors[home.states[state].pheromoneDropped];
         transform.up = -transform.up;
     }
 
@@ -33,6 +33,8 @@ public class Ant : MonoBehaviour
     void Start()
     {
         agentCollider = GetComponent<Collider2D>();
+        var main = particles.main;
+        main.startColor = ColliderPheromoneField.instance.colors[home.states[state].pheromoneDropped];
         particles.Play();
     }
 
