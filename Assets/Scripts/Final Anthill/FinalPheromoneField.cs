@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderPheromoneField : MonoBehaviour
+public class FinalPheromoneField : MonoBehaviour
 {
-    static public ColliderPheromoneField instance { get; private set;}
+    static public FinalPheromoneField instance { get; private set;}
     public LayerMask layerMask;
     public List<Color> colors = new List<Color>();
-    private Dictionary<Vector3, ColliderPheromoneNode> nodes = new Dictionary<Vector3, ColliderPheromoneNode>();
+    private Dictionary<Vector3, FinalPheromoneNode> nodes = new Dictionary<Vector3, FinalPheromoneNode>();
 
     void Start()
     {
@@ -15,9 +15,9 @@ public class ColliderPheromoneField : MonoBehaviour
         else Debug.LogError("FeromoneField already exists");
     }
 
-    public List<ColliderPheromoneNode> GetPheromoneContext(Ant ant, int filterType)
+    public List<FinalPheromoneNode> GetPheromoneContext(FinalAnt ant, int filterType)
     {
-        List<ColliderPheromoneNode> context = new List<ColliderPheromoneNode>();
+        List<FinalPheromoneNode> context = new List<FinalPheromoneNode>();
         Collider2D[] collidersRight = Physics2D.OverlapCircleAll(ant.transform.position + (ant.transform.up + ant.transform.right).normalized, 0.37f, layerMask);
         Collider2D[] collidersLeft = Physics2D.OverlapCircleAll(ant.transform.position + (ant.transform.up - ant.transform.right).normalized, 0.37f, layerMask);
         Collider2D[] collidersUp = Physics2D.OverlapCircleAll(ant.transform.position + ant.transform.up.normalized, 0.37f, layerMask);
@@ -31,16 +31,16 @@ public class ColliderPheromoneField : MonoBehaviour
         return context;
     }
 
-    public ColliderPheromoneNode GetNode(Vector3 position)
+    public FinalPheromoneNode GetNode(Vector3 position)
     {
         Collider2D collider = Physics2D.OverlapCircle(position, .6f, layerMask);
         if (collider != null) {
-            ColliderPheromoneNode transferee = nodes[collider.offset].Transfer(position);
+            FinalPheromoneNode transferee = nodes[collider.offset].Transfer(position);
             nodes.Remove(collider.offset);
             nodes.Add(position, transferee);
             return nodes[position];
         }
-        ColliderPheromoneNode node = new ColliderPheromoneNode(gameObject.AddComponent<CircleCollider2D>(), position);
+        FinalPheromoneNode node = new FinalPheromoneNode(gameObject.AddComponent<CircleCollider2D>(), position);
         nodes.Add(position, node);
         return node;
     }

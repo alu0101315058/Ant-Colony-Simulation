@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Anthill : MonoBehaviour
+public class FinalAnthill : MonoBehaviour
 {
     [System.Serializable]
     public struct AgentState
@@ -13,8 +13,8 @@ public class Anthill : MonoBehaviour
     public Transform target;
 
     public List<AgentState> states;
-    public Ant agentPrefab;
-    private List<Ant> ants = new List<Ant>();
+    public FinalAnt agentPrefab;
+    private List<FinalAnt> ants = new List<FinalAnt>();
 
     [Range(1, 500)]
     public int startingCount = 250;
@@ -37,7 +37,7 @@ public class Anthill : MonoBehaviour
     {
         for (int i = 0; i < startingCount; i++)
         {
-            Ant newAnt = Instantiate(
+            FinalAnt newAnt = Instantiate(
                 agentPrefab,
                 (Vector2)transform.position + (Random.insideUnitCircle),
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
@@ -54,7 +54,7 @@ public class Anthill : MonoBehaviour
     {
         bool drop = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
         if (drop) lastDropped = Time.time;
-        foreach (Ant ant in ants)
+        foreach (FinalAnt ant in ants)
         {
             // Perception
             // Movement
@@ -65,7 +65,7 @@ public class Anthill : MonoBehaviour
         }
     }
 
-    private Vector2 HandleMapCollision(Ant ant, Vector2 move)
+    private Vector2 HandleMapCollision(FinalAnt ant, Vector2 move)
     {
         RaycastHit2D hit = Physics2D.Raycast(ant.transform.position, move, 0.5f, (1 << 7));
         if (hit.collider != null)
@@ -75,7 +75,7 @@ public class Anthill : MonoBehaviour
         return move;
     }
 
-    Vector2 Visuals(Ant ant)
+    Vector2 Visuals(FinalAnt ant)
     {
         RaycastHit2D hitRigth = Physics2D.Raycast(ant.transform.position, 3*ant.transform.up + ant.transform.right, 1f, 1 << 7);
         Debug.DrawRay(ant.transform.position, 3 * ant.transform.up + ant.transform.right, Color.red);
@@ -93,18 +93,18 @@ public class Anthill : MonoBehaviour
         return avoidanceMove;
     }
 
-    Vector2 Smell(Ant ant)
+    Vector2 Smell(FinalAnt ant)
     {
         for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
             if (states[ant.state].pheromoneSense[i] == 0) continue;
-            List<ColliderPheromoneNode> nodes = ColliderPheromoneField.instance.GetPheromoneContext(ant, i);
+            List<FinalPheromoneNode> nodes = FinalPheromoneField.instance.GetPheromoneContext(ant, i);
             if (nodes.Count > 0)
             {
                 Vector2 move = Vector2.zero;
                 for (int j = 0; j < nodes.Count; j++)
                 {
                     move += (Vector2)nodes[j].position - (Vector2)ant.transform.position * states[ant.state].pheromoneSense[i];
-                    // ColliderPheromoneField.instance.GetNode(nodes[j].position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
+                    // FinalPheromoneField.instance.GetNode(nodes[j].position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
                 }
                 return move;
             }
@@ -113,15 +113,15 @@ public class Anthill : MonoBehaviour
         return stuborness * ant.transform.up + ant.transform.right * Random.Range(-1f, 1f);
     }
 
-    private void DropPheromone(Ant ant)
+    private void DropPheromone(FinalAnt ant)
     {
-        ColliderPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
+        FinalPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         // Change state from carrying to searching
-        Ant ant = other.GetComponent<Ant>();
+        FinalAnt ant = other.GetComponent<FinalAnt>();
         if (ant != null && ant.Home == this && ant.state == 1)
         {
             ant.DropFood();

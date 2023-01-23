@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColliderPheromoneNode
+public class FinalPheromoneNode
 {
     public int type = -1;
     public float lastUpdate = 0;
     public Vector3 position;
     public CircleCollider2D collider;
-    public ColliderPheromoneNode(CircleCollider2D col, Vector3 pos = default)
+    public FinalPheromoneNode(CircleCollider2D col, Vector3 pos = default)
     {
         position = pos;
         collider = col;
@@ -17,9 +17,9 @@ public class ColliderPheromoneNode
         collider.offset = pos;
     }
 
-    public ColliderPheromoneNode Transfer(Vector3 position)
+    public FinalPheromoneNode Transfer(Vector3 position)
     {
-        ColliderPheromoneNode node = new ColliderPheromoneNode(collider, position);
+        FinalPheromoneNode node = new FinalPheromoneNode(collider, position);
         collider = null;
         node.type = type;
         node.lastUpdate = lastUpdate;

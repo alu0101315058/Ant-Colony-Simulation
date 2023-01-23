@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Ant : MonoBehaviour
+public class FinalAnt : MonoBehaviour
 {
     public int state = 0;
-    private Anthill home;
-    public Anthill Home { get { return home; } }
+    private FinalAnthill home;
+    public FinalAnthill Home { get { return home; } }
     private Collider2D agentCollider;
     public ParticleSystem particles;
     public static float particleLifespan = 5f;
@@ -17,7 +17,7 @@ public class Ant : MonoBehaviour
     {
         state = 1;
         var main = particles.main;
-        main.startColor = ColliderPheromoneField.instance.colors[1];
+        main.startColor = FinalPheromoneField.instance.colors[1];
         transform.up = -transform.up;
     }
 
@@ -25,7 +25,7 @@ public class Ant : MonoBehaviour
     {
         state = 0;
         var main = particles.main;
-        main.startColor = ColliderPheromoneField.instance.colors[0];
+        main.startColor = FinalPheromoneField.instance.colors[0];
         transform.up = -transform.up;
     }
 
@@ -36,7 +36,7 @@ public class Ant : MonoBehaviour
         particles.Play();
     }
 
-    public void Initialize(Anthill anthill)
+    public void Initialize(FinalAnthill anthill)
     {
         home = anthill;
     }
