@@ -111,13 +111,13 @@ public class Flock : MonoBehaviour
         PheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(states[agent.state].pheromoneDropped);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggeEnter2D(Collider2D other)
     {
-        Debug.Log("Anthill Triggered: " + other.gameObject.name);
+        // Debug.Log("Anthill Triggered: " + other.gameObject.name);
         FlockAgent agent = other.GetComponent<FlockAgent>();
         if (agent != null && agent.AgentFlock == this && agent.state == 1)
         {
-            agent.state = 0;
+            agent.SetState(1, Color.red);
             gatheredFood++;
         }
     }
