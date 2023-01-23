@@ -82,7 +82,7 @@ public class Flock : MonoBehaviour
         }
         
     }
-        
+
     private Vector2 HandleMapCollision(FlockAgent agent, Vector2 move)
     {
         RaycastHit2D hit = Physics2D.Raycast(agent.transform.position, move, 0.5f, (1 << 7));
@@ -109,7 +109,7 @@ public class Flock : MonoBehaviour
     }
     private void DropPheromone(FlockAgent agent)
     {
-        AltPheromoneField.instance.GetNode(agent.transform.position).UpdateFeromone(states[agent.state].pheromoneDropped);
+        AltPheromoneField.instance.GetNode(agent.transform.position).UpdatePheromone(states[agent.state].pheromoneDropped);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -120,7 +120,7 @@ public class Flock : MonoBehaviour
         if (agent != null && agent.state == 1)
         {
             Debug.Log("Triggered");
-            agent.state = 0;
+            agent.SetState(0, Color.blue);
             gatheredFood++;
         }
     }

@@ -35,12 +35,6 @@ public class FlockAgent : MonoBehaviour
         agentFlock = flock;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("triggered");
-        SetState(1, Color.red);
-    }
-
     public void Move(Vector2 velocity)
     {
         transform.up = velocity;

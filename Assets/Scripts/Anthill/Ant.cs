@@ -11,7 +11,17 @@ public class Ant : MonoBehaviour
     private Collider2D agentCollider;
     public Collider2D AgentCollider { get { return agentCollider; } }
 
+    public void GetFood()
+    {
+        state = 1;
+        transform.up = -transform.up;
+    }
 
+    public void DropFood()
+    {
+        state = 0;
+        transform.up = -transform.up;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +34,11 @@ public class Ant : MonoBehaviour
         home = anthill;
     }
 
-    public void Move(Vector2 velocity)
+    public void Move(Vector2 target)
     {
-        transform.up = velocity;
-        transform.position += (Vector3)velocity * Time.deltaTime;
+        float angle = Vector2.Angle(transform.up, target);
+        // transform.up = Vector2.Lerp(transform.up, target, home.turnSpeed < angle ? home.turnSpeed : angle);
+        float speed = home.maxSpeed * Mathf.Cos(Mathf.Deg2Rad*angle);
+        transform.position += transform.up * Time.deltaTime * (speed > 0 ? speed : 0);
     }
 }

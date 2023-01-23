@@ -23,7 +23,7 @@ public class Food : MonoBehaviour
         FlockAgent agent = other.GetComponent<FlockAgent>();
         if (agent != null)
         {
-            agent.state = 1;
+            agent.SetState(1, Color.red);
             TakeBite();
         }
     }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filter: {fileID: 0}
   pheromoneAllure:
-  - 0.1
   - 0
+  - 1

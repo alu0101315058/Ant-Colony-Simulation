@@ -10,66 +10,60 @@ public class Anthill : MonoBehaviour
         // Behaviour
         public int pheromoneDropped;
     }
+    public Transform target;
 
     public List<AgentState> states;
     public Ant agentPrefab;
     private List<Ant> ants = new List<Ant>();
 
-    [Range(10, 500)]
+    [Range(1, 500)]
     public int startingCount = 250;
 
-    [Range(1f, 100f)]
-    public float driveFactor = 10f;
-    [Range(1f, 100f)]
-    public float inertia = 5f;
-    [Range(1f, 100f)]
+    [Range(0f, 1f)]
+    public float turnSpeed = 1f;
+    [Range(0f, 100f)]
     public float maxSpeed = 5f;
 
-    public bool dropPheromones = true;
-    public float pheromoneDropRate = .5f;
-    public int gatheredFood = 0;
-
-    float lastDropped = 0;
-    float squareMaxSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        squareMaxSpeed = maxSpeed * maxSpeed;
-
         for (int i = 0; i < startingCount; i++)
         {
             Ant newAnt = Instantiate(
                 agentPrefab,
                 (Vector2)transform.position + (Random.insideUnitCircle),
-                //Random.insideUnitCircle * AgentDensity * startingCount
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
                 transform
             );
-            newAnt.name = "Agent " + i;
+            newAnt.name = "Ant " + i;
             newAnt.Initialize(this);
             ants.Add(newAnt);
         }
+        ants[0].state = 1;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool pheromoneUpdate = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
-        if (pheromoneUpdate) lastDropped = Time.time;
         foreach (Ant ant in ants)
         {
             // Perception
             // Movement
-            Vector2 move = 100 * Visuals(ant) + Smell(ant) * driveFactor + ((Vector2)ant.transform.up * inertia);
-            if (move.sqrMagnitude > squareMaxSpeed)
-            {
-                move = move.normalized * maxSpeed;
-            }
+            Vector2 move = Smell(ant);
+            //move = HandleMapCollision(ant, move);
             ant.Move(move);
-            if (pheromoneUpdate) DropPheromone(ant);
         }
-        
+    }
+
+    private Vector2 HandleMapCollision(Ant ant, Vector2 move)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(ant.transform.position, move, 0.5f, (1 << 7));
+        if (hit.collider != null)
+        {
+            move = Vector2.Reflect(move, hit.normal);
+        }
+        return move;
     }
 
     Vector2 Visuals(Ant ant)
@@ -94,12 +88,14 @@ public class Anthill : MonoBehaviour
 
     Vector2 Smell(Ant ant)
     {
-        return ant.transform.up + ant.transform.right * Random.Range(-1f,1f);
+        // Get Pheromones in three directions
+        // ant.transform.up = 
+        return target.position - ant.transform.position;
     }
 
     private void DropPheromone(Ant ant)
     {
-        
+        AntPheromoneField.instance.GetNode(ant.transform.position).UpdatePheromone(ant.Home.states[ant.state].pheromoneDropped);
     }
 
     void OnTriggerEnter2D(Collider2D other)

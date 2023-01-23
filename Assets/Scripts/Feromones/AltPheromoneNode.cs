@@ -17,7 +17,7 @@ public class AltPheromoneNode
         }
     }
 
-    public void UpdateFeromone(int index)
+    public void UpdatePheromone(int index)
     {
         feromoneTimes[index] = Time.time;
         lastUpdate = Time.time;

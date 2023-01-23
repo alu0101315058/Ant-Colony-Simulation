@@ -5517,7 +5517,7 @@ MonoBehaviour:
   - behaviour: {fileID: 11400000, guid: 5705cff3c6f14a34a9a2fb77ccf37174, type: 2}
     pheromoneDropped: 1
   agentPrefab: {fileID: 5882509965780823073, guid: 2117610657933be41ab75e448f5d43a0, type: 3}
-  startingCount: 500
+  startingCount: 10
   driveFactor: 10
   maxSpeed: 2
   neighbourRadius: 1.5
