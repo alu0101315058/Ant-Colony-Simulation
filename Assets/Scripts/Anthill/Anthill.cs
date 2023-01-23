@@ -7,7 +7,7 @@ public class Anthill : MonoBehaviour
     [System.Serializable]
     public struct AgentState
     {
-        // Behaviour
+        public int[] pheromoneSense;
         public int pheromoneDropped;
     }
     public Transform target;
@@ -23,6 +23,13 @@ public class Anthill : MonoBehaviour
     public float turnSpeed = 1f;
     [Range(0f, 100f)]
     public float maxSpeed = 5f;
+    [Range(1f, 5f)]
+    public float stuborness = 1f;
+
+    public bool dropPheromones = true;
+    private float lastDropped = 0;
+    public float pheromoneDropRate = .5f;
+    public int gatheredFood = 0;
 
 
     // Start is called before the first frame update
@@ -40,19 +47,21 @@ public class Anthill : MonoBehaviour
             newAnt.Initialize(this);
             ants.Add(newAnt);
         }
-        ants[0].state = 1;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        bool drop = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
+        if (drop) lastDropped = Time.time;
         foreach (Ant ant in ants)
         {
             // Perception
             // Movement
-            Vector2 move = Smell(ant);
-            //move = HandleMapCollision(ant, move);
+            Vector2 move = Smell(ant) + Visuals(ant);
+            move = HandleMapCollision(ant, move);
             ant.Move(move);
+            DropPheromone(ant);
         }
     }
 
@@ -68,11 +77,9 @@ public class Anthill : MonoBehaviour
 
     Vector2 Visuals(Ant ant)
     {
-        // use three rays to check for obstacles
-        // if obstacle, turn away from it
-        RaycastHit2D hitRigth = Physics2D.Raycast(ant.transform.position, 3*ant.transform.up + ant.transform.right, 1f, LayerMask.GetMask("Obstacle"));
+        RaycastHit2D hitRigth = Physics2D.Raycast(ant.transform.position, 3*ant.transform.up + ant.transform.right, 1f, 1 << 7);
         Debug.DrawRay(ant.transform.position, 3 * ant.transform.up + ant.transform.right, Color.red);
-        RaycastHit2D hitLeft = Physics2D.Raycast(ant.transform.position, 3*ant.transform.up - ant.transform.right, 1f, LayerMask.GetMask("Obstacle"));
+        RaycastHit2D hitLeft = Physics2D.Raycast(ant.transform.position, 3*ant.transform.up - ant.transform.right, 1f, 1 << 7);
         Debug.DrawRay(ant.transform.position, 3 * ant.transform.up - ant.transform.right, Color.red);
         Vector2 avoidanceMove = Vector2.zero;
         if (hitRigth.collider != null)
@@ -88,9 +95,22 @@ public class Anthill : MonoBehaviour
 
     Vector2 Smell(Ant ant)
     {
-        // Get Pheromones in three directions
-        // ant.transform.up = 
-        return target.position - ant.transform.position;
+        for (int i = 0; i < states[ant.state].pheromoneSense.Length; i++) {
+            if (states[ant.state].pheromoneSense[i] == 0) continue;
+            List<AntPheromoneNode> nodes = AntPheromoneField.instance.GetPheromoneContext(ant, i);
+            if (nodes.Count > 0)
+            {
+                Vector2 move = Vector2.zero;
+                for (int j = 0; j < nodes.Count; j++)
+                {
+                    float age = Time.time - nodes[j].lastUpdate + 0.1f;
+                    move += (Vector2)nodes[j].position - (Vector2)ant.transform.position * states[ant.state].pheromoneSense[i] / age;
+                }
+                return move;
+            }
+        }
+        // if (target != null) return (Vector2)target.position - (Vector2)ant.transform.position;
+        return stuborness * ant.transform.up + ant.transform.right * Random.Range(-1f, 1f);
     }
 
     private void DropPheromone(Ant ant)
@@ -101,5 +121,11 @@ public class Anthill : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Change state from carrying to searching
+        Ant ant = other.GetComponent<Ant>();
+        if (ant != null && ant.Home == this && ant.state == 1)
+        {
+            ant.DropFood();
+            gatheredFood++;
+        }
     }
 }

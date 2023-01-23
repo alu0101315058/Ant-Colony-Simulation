@@ -15,7 +15,7 @@ public class Food : MonoBehaviour
         shrinkFactor = transform.localScale.magnitude / foodValue;
         particles = GetComponent<ParticleSystem>();
         var emission = particles.emission;
-        emission.rateOverTimeMultiplier = foodValue;
+        emission.rateOverTime = foodValue;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -24,6 +24,12 @@ public class Food : MonoBehaviour
         if (agent != null)
         {
             agent.SetState(1, Color.red);
+            TakeBite();
+        }
+        Ant ant = other.GetComponent<Ant>();
+        if (ant != null && ant.state == 0)
+        {
+            ant.GetFood();
             TakeBite();
         }
     }
@@ -40,7 +46,7 @@ public class Food : MonoBehaviour
         else
         {
             var emission = particles.emission;
-            emission.rateOverTimeMultiplier = foodValue;
+            emission.rateOverTime = foodValue;
         }
     }
 

@@ -6,6 +6,7 @@ public class AntPheromoneField : MonoBehaviour
 {
     static public AntPheromoneField instance { get; private set;}
     public LayerMask layerMask;
+    public List<Color> colors = new List<Color>();
     public float resolution = 16;
     private Dictionary<Vector2Int, AntPheromoneNode> nodes = new Dictionary<Vector2Int, AntPheromoneNode>();
 
@@ -75,7 +76,7 @@ public class AntPheromoneField : MonoBehaviour
     {
         Vector2Int pos = new Vector2Int(Mathf.RoundToInt(position.x / resolution), Mathf.RoundToInt(position.z / resolution));
         if (nodes.ContainsKey(pos)) return nodes[pos];
-        AntPheromoneNode node = new AntPheromoneNode(pos);
+        AntPheromoneNode node = new AntPheromoneNode(position);
         nodes.Add(pos, node);
         return node;
     }

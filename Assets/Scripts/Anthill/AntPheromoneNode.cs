@@ -6,8 +6,8 @@ public class AntPheromoneNode
 {
     public int type = -1;
     public float lastUpdate = 0;
-    public Vector2Int position;
-    public AntPheromoneNode(Vector2Int pos = default)
+    public Vector3 position;
+    public AntPheromoneNode(Vector3 pos = default)
     {
         position = pos;
     }
