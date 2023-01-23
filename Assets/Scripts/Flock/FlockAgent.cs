@@ -10,13 +10,14 @@ public class FlockAgent : MonoBehaviour
     public Flock AgentFlock { get { return agentFlock; } }
     private Collider2D agentCollider;
     public Collider2D AgentCollider { get { return agentCollider; } }
-
+    public ParticleSystem particles;
 
 
     // Start is called before the first frame update
     void Start()
     {
         agentCollider = GetComponent<Collider2D>();
+        particles.Play();
     }
 
     public void Initialize(Flock flock)
