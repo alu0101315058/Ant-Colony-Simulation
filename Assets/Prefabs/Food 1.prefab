@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minFoodValue: 100
   maxFoodValue: 1000
-  foodValue: 4
+  foodValue: 1000
 --- !u!58 &-3861495180545167935
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -922,7 +922,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2

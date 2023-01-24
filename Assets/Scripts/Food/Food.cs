@@ -44,7 +44,7 @@ public class Food : MonoBehaviour
         else
         {
             var emission = particles.emission;
-            emission.rateOverTime = foodValue;
+            emission.rateOverTime = foodValue / 50;
         }
     }
 
