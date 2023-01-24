@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
-    [System.Serializable]
-    public struct AgentState
-    {
-        public FlockBehaviour behaviour;
-        public int pheromoneDropped;
-    }
-
-    public List<AgentState> states;
     public FlockAgent agentPrefab;
     private List<FlockAgent> agents = new List<FlockAgent>();
+    public FlockBehaviour behaviour;
 
     [Range(10, 500)]
     public int startingCount = 250;
@@ -28,11 +21,6 @@ public class Flock : MonoBehaviour
     [Range(0f, 1f)]
     public float avoidanceRadiusMultiplier = 0.5f;
 
-    public bool dropPheromones = true;
-    public float pheromoneDropRate = .5f;
-    public int gatheredFood = 0;
-
-    float lastDropped = 0;
     float squareMaxSpeed;
     float squareNeighbourRadius;
     float squareAvoidanceRadius;
@@ -49,8 +37,7 @@ public class Flock : MonoBehaviour
         {
             FlockAgent newAgent = Instantiate(
                 agentPrefab,
-                (Vector2)transform.position + (Random.insideUnitCircle),
-                //Random.insideUnitCircle * AgentDensity * startingCount
+                Random.insideUnitCircle * startingCount * AgentDensity,
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
                 transform
             );
@@ -61,67 +48,34 @@ public class Flock : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        bool pheromoneUpdate = dropPheromones && Time.time - lastDropped > pheromoneDropRate;
-        if (pheromoneUpdate) lastDropped = Time.time;
         foreach (FlockAgent agent in agents)
         {
             List<Transform> context = GetNearbyObjects(agent);
             // agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
-            if (agent.state >= states.Count) continue;
-            Vector2 move = states[agent.state].behaviour.CalculateMove(agent, context, this);
-            move = HandleMapCollision(agent, move);
+
+            Vector2 move = behaviour.CalculateMove(agent, context, this);
             move *= driveFactor;
             if (move.sqrMagnitude > squareMaxSpeed)
             {
                 move = move.normalized * maxSpeed;
             }
             agent.Move(move);
-            if (pheromoneUpdate) DropPheromone(agent);
         }
-        
-    }
-
-    private Vector2 HandleMapCollision(FlockAgent agent, Vector2 move)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(agent.transform.position, move, 0.5f, (1 << 7));
-        if (hit.collider != null)
-        {
-            move = Vector2.Reflect(move, hit.normal);
-        }
-        return move;
     }
 
     List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         List<Transform> context = new List<Transform>();
-        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position + agent.transform.up, neighbourRadius);
+        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighbourRadius);
         foreach (Collider2D c in contextColliders)
         {
-
             if (c != agent.AgentCollider)
             {
                 context.Add(c.transform);
             }
         }
         return context;
-    }
-    private void DropPheromone(FlockAgent agent)
-    {
-        AltPheromoneField.instance.GetNode(agent.transform.position).UpdatePheromone(states[agent.state].pheromoneDropped);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.layer != 9) return;
-        FlockAgent agent = other.GetComponent<FlockAgent>();
-        Debug.Log("Triggered by " + other.name + ": " + (agent != null) + " " + (agent != null?agent.state:""));
-        if (agent != null && agent.state == 1)
-        {
-            Debug.Log("Triggered");
-            agent.SetState(0, Color.blue);
-            gatheredFood++;
-        }
     }
 }

@@ -18,12 +18,6 @@ public class Food : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        FlockAgent agent = other.GetComponent<FlockAgent>();
-        if (agent != null)
-        {
-            agent.SetState(1, Color.red);
-            TakeBite();
-        }
         Ant ant = other.GetComponent<Ant>();
         if (ant != null && ant.state == 0)
         {
